@@ -31,7 +31,7 @@ for key, value in secrets.items():
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-x2roq=&j2&zwrnvsp7#p(*w8egg0x5n8#l(8*_l@+c=tk0nuf0'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
