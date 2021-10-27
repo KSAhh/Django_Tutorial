@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+</head>
+<body>
+    <h1>{{ question.question_text }}</h1>
+    <ul>
+        <!-- python에서 question.choice_set.all은 question.choice_set.all()으로 해석됨 -->
+        {% for choice in question.choice_set.all %}
+
+            <li>{{ choice.choice_text }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
