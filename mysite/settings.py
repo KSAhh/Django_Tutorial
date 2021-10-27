@@ -9,18 +9,29 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import sys
+import json
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+SECRETS_PATH = os.path.join(ROOT_DIR, '.config_secret/secrets.json')
+# json 파일을 python 객체로 변환
+secrets = json.loads(open(SECRETS_PATH).read())
+# json은 dict 자료형으로 변환되므로 .items() 함수를 이용해 key와 value값을 가져온다.
+# 이때 settings 모듈에 동적으로 할당한다.
+for key, value in secrets.items():
+    setattr(sys.modules[__name__], key, value)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x2roq=&j2&zwrnvsp7#p(*w8egg0x5n8#l(8*_l@+c=tk0nuf0'
+#SECRET_KEY = 'django-insecure-x2roq=&j2&zwrnvsp7#p(*w8egg0x5n8#l(8*_l@+c=tk0nuf0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
