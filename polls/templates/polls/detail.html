@@ -7,13 +7,26 @@
     <title>Detail</title>
 </head>
 <body>
-    <h1>{{ question.question_text }}</h1>
-    <ul>
-        <!-- python에서 question.choice_set.all은 question.choice_set.all()으로 해석됨 -->
-        {% for choice in question.choice_set.all %}
+    <!-- <h1>{{ question.question_text }}</h1>
+    <ul> -->
+        <!-- Question 모델을 foreign key로 참조하는 모든 Choice 모델을 가져옴 -->
+        <!-- {% for choice in question.choice_set.all %}
 
             <li>{{ choice.choice_text }}</li>
         {% endfor %}
-    </ul>
+    </ul> -->
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ question.question_text }}</h1></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Vote">
+        </form>
 </body>
 </html>
